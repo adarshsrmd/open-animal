@@ -150,6 +150,16 @@ input.in,select.in{font:inherit;border:1px solid var(--line);border-radius:10px;
 .signed{position:fixed;inset:0;background:linear-gradient(160deg,#0f4a3a,#145a46);color:#fff;display:grid;place-content:center;justify-items:center;text-align:center;gap:14px;z-index:100;padding:20px}
 .signed[hidden]{display:none}.signed .btn{background:#fff;color:var(--green-900)}
 textarea.in{resize:vertical;font:inherit}
+[data-go]{cursor:pointer}
+.article[data-go]:hover{border-color:var(--green-700)}
+.acts{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.hero-sm{display:flex;align-items:center;gap:18px;margin:6px 0 20px}.hero-sm .big{font-size:56px}
+.hero-sm h1{font-size:28px;font-weight:800;color:var(--green-900);margin:4px 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+@media (max-width:960px){.two{grid-template-columns:1fr}}
+.card ol,.card ul{padding-left:20px;line-height:1.7;margin:6px 0}
+.rec{padding:8px 0;border-top:1px solid var(--line);font-size:13px}
+button.row{text-align:left}
 /* Toast */
 .toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,20px);background:var(--green-900);color:#fff;padding:12px 20px;border-radius:12px;opacity:0;pointer-events:none;transition:.25s;z-index:50}
 .toast.show{opacity:1;transform:translate(-50%,0)}
@@ -214,7 +224,7 @@ textarea.in{resize:vertical;font:inherit}
     <div class="top-right">
       <div class="rel"><button class="bell" id="bellBtn" aria-label="Notifications"><svg><use href="#bell"/></svg><i class="dot" id="dot"></i></button><div class="pop" id="bellPop" hidden></div></div>
       <div class="rel"><button class="user" id="userBtn"><div class="avatar"><svg style="font-size:22px"><use href="#user"/></svg></div><span id="userName">RMD Boys</span><svg><use href="#chev"/></svg></button>
-        <div class="pop" id="userPop" hidden><button data-profile>Profile</button><button data-go="animals">My animals</button><button data-settings>Settings</button><button data-signout>Sign out</button></div></div>
+        <div class="pop" id="userPop" hidden><button data-go="profile">Profile</button><button data-go="animals">My animals</button><button data-go="settings">Settings</button><button data-signout>Sign out</button></div></div>
     </div>
   </header>
 
@@ -223,7 +233,7 @@ textarea.in{resize:vertical;font:inherit}
       <section class="hero">
         <h1>Better Care<br>for Every Animal</h1>
         <p>Get trusted information, track health, and find the right help — all in one place.</p>
-        <a class="btn" href="#quick">Explore Features <svg><use href="#arrow"/></svg></a>
+        <a class="btn" href="#" data-go="features">Explore Features <svg><use href="#arrow"/></svg></a>
         <div class="art" aria-hidden="true">🐮</div>
       </section>
 
@@ -237,17 +247,17 @@ textarea.in{resize:vertical;font:inherit}
 
       <div class="section-head"><h2>Featured Articles</h2><a class="link" href="#" data-go="kb">View All <svg><use href="#arrow"/></svg></a></div>
       <section class="articles" id="articles">
-        <article class="article">
-          <div class="photo ph-cow">🐄<span class="tag">Cattle</span></div>
-          <div class="body"><h3>Common Diseases in Cattle</h3><p>Learn about common cattle diseases, symptoms and prevention tips.</p><a class="link" href="#" data-article="cattle">Read More <svg><use href="#arrow"/></svg></a></div>
+        <article class="article" data-go="article/cattle">
+          <div class="photo ph-cow">🐄<span class="tag" data-go="kb/Cattle">Cattle</span></div>
+          <div class="body"><h3>Common Diseases in Cattle</h3><p>Learn about common cattle diseases, symptoms and prevention tips.</p><a class="link" href="#" data-go="article/cattle">Read More <svg><use href="#arrow"/></svg></a></div>
         </article>
-        <article class="article">
-          <div class="photo ph-goat">🐐<span class="tag">Goat</span></div>
-          <div class="body"><h3>Goat Nutrition Guide</h3><p>Essential nutrients and feeding recommendations for healthy goats.</p><a class="link" href="#" data-article="goat">Read More <svg><use href="#arrow"/></svg></a></div>
+        <article class="article" data-go="article/goat">
+          <div class="photo ph-goat">🐐<span class="tag" data-go="kb/Goat">Goat</span></div>
+          <div class="body"><h3>Goat Nutrition Guide</h3><p>Essential nutrients and feeding recommendations for healthy goats.</p><a class="link" href="#" data-go="article/goat">Read More <svg><use href="#arrow"/></svg></a></div>
         </article>
-        <article class="article">
-          <div class="photo ph-hen">🐓<span class="tag">Poultry</span></div>
-          <div class="body"><h3>Poultry Vaccination Schedule</h3><p>Keep your flock protected with the right vaccination schedule.</p><a class="link" href="#" data-article="poultry">Read More <svg><use href="#arrow"/></svg></a></div>
+        <article class="article" data-go="article/poultry">
+          <div class="photo ph-hen">🐓<span class="tag" data-go="kb/Poultry">Poultry</span></div>
+          <div class="body"><h3>Poultry Vaccination Schedule</h3><p>Keep your flock protected with the right vaccination schedule.</p><a class="link" href="#" data-go="article/poultry">Read More <svg><use href="#arrow"/></svg></a></div>
         </article>
         <p class="empty" id="noResults" hidden>No articles match your search.</p>
       </section>
@@ -269,7 +279,7 @@ textarea.in{resize:vertical;font:inherit}
         <div class="badge-ic"><svg><use href="#paw"/></svg></div>
         <h3>Need Emergency Help?</h3>
         <p>Find nearby veterinary hospitals, shelters or rescue organisations quickly.</p>
-        <a class="btn sm" href="#" data-go="vets" data-emergency>Find Help <svg><use href="#arrow"/></svg></a>
+        <a class="btn sm" href="#" data-go="emergency">Find Help <svg><use href="#arrow"/></svg></a>
       </section>
     </aside>
   </div>
@@ -284,9 +294,9 @@ const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const emojiOf={Cow:'🐄',Goat:'🐐',Dog:'🐕',Chicken:'🐓',Sheep:'🐑',Horse:'🐴',Cat:'🐈'};
 let animals=[
- {id:'bessie',name:'Bessie',type:'Cow',age:4,emoji:'🐄',status:'Healthy',note:'Milking normally and eating well. Last checkup January.'},
- {id:'luna',name:'Luna',type:'Goat',age:2,emoji:'🐐',status:'Vaccination Due',note:'Rabies vaccine is coming due. Book a visit soon.'},
- {id:'max',name:'Max',type:'Dog',age:3,emoji:'🐕',status:'Healthy',note:'Active and healthy. Annual checkup is coming up.'}];
+ {id:'bessie',name:'Bessie',type:'Cow',age:4,emoji:'🐄',status:'Healthy',note:'Milking normally and eating well.',records:[{d:'Jan 12, 2025',t:'General checkup. No concerns.'},{d:'Oct 3, 2024',t:'Foot-and-mouth vaccine given.'}]},
+ {id:'luna',name:'Luna',type:'Goat',age:2,emoji:'🐐',status:'Vaccination Due',note:'Rabies vaccine is coming due.',records:[{d:'Apr 26, 2024',t:'Rabies vaccine given.'}]},
+ {id:'max',name:'Max',type:'Dog',age:3,emoji:'🐕',status:'Healthy',note:'Active and healthy.',records:[{d:'Jun 15, 2024',t:'Annual checkup. Healthy.'},{d:'Jun 15, 2024',t:'Parvo booster given.'}]}];
 let reminders=[
  {id:1,text:'Luna – Rabies Vaccine',date:'Apr 26, 2025',done:false},
  {id:2,text:'Bessie – Deworming',date:'May 10, 2025',done:false},
@@ -300,124 +310,146 @@ const diseases=[
  {id:'parvo',name:'Canine Parvovirus',sp:'Dog',e:'🐕',urg:'Emergency',sym:['Vomiting','Bloody diarrhea','Fever','Lethargy','Reduced appetite'],about:'A serious viral illness, most dangerous for puppies.',prev:'Complete the puppy vaccine series and avoid contact with unvaccinated dogs.'},
  {id:'rabies',name:'Rabies',sp:'All mammals',e:'🐾',urg:'Emergency',sym:['Aggression','Drooling','Fever','Paralysis'],about:'A fatal viral disease that can spread to people.',prev:'Keep rabies vaccines up to date and avoid contact with wild animals.'}];
 const articles={
- cattle:{tag:'Cattle',e:'🐄',t:'Common Diseases in Cattle',d:'Learn about common cattle diseases, symptoms and prevention tips.',b:['Mastitis, bloat, foot rot and tick fever are among the most common problems in cattle.','Watch for changes in appetite, milk yield, walking and temperature. Early treatment is cheaper and safer.','Prevention rests on clean housing, regular vaccination and deworming, and a balanced diet.']},
- goat:{tag:'Goat',e:'🐐',t:'Goat Nutrition Guide',d:'Essential nutrients and feeding recommendations for healthy goats.',b:['Goats need good quality roughage first: pasture, browse or hay.','Add minerals formulated for goats. Copper needs differ from sheep.','Always provide clean water and change feed gradually over 7–10 days.']},
- poultry:{tag:'Poultry',e:'🐓',t:'Poultry Vaccination Schedule',d:'Keep your flock protected with the right vaccination schedule.',b:['Chicks are usually vaccinated against Marek’s disease at hatch, then Newcastle disease and infectious bronchitis in the first weeks.','Schedules vary by region and flock type. Confirm yours with a local vet.','Record every vaccination date so boosters are not missed.']},
- dog:{tag:'Dogs',e:'🐕',t:'Dog Vaccination Basics',d:'Core vaccines every dog needs and when to give them.',b:['Core vaccines cover parvovirus, distemper, adenovirus and rabies.','Puppies start at 6–8 weeks with boosters every 3–4 weeks until about 16 weeks.','Adult dogs need boosters on the schedule your vet recommends.']},
- heat:{tag:'General',e:'☀️',t:'Spotting Heat Stress',d:'Signs of heat stress in farm animals and how to cool them safely.',b:['Look for heavy panting, drooling, weakness and reduced eating.','Move animals to shade, offer cool water, and use fans or sprinklers if you can.','Call a vet if an animal collapses or does not recover quickly.']},
- aid:{tag:'General',e:'🩹',t:'First Aid for Farm Animals',d:'What to keep in your kit and what to do before the vet arrives.',b:['Keep a thermometer, clean bandages, saline, gloves and your vet’s number together.','Control bleeding with firm pressure and keep the animal calm and still.','First aid buys time. It does not replace a vet visit.']}};
+ cattle:{tag:'Cattle',e:'🐄',m:4,t:'Common Diseases in Cattle',d:'Learn about common cattle diseases, symptoms and prevention tips.',b:['Mastitis, bloat, foot rot and tick fever are among the most common problems in cattle.','Watch for changes in appetite, milk yield, walking and temperature. Early treatment is cheaper and safer.','Prevention rests on clean housing, regular vaccination and deworming, and a balanced diet.'],k:['Check temperature and appetite daily','Vaccinate and deworm on schedule','Isolate sick animals early']},
+ goat:{tag:'Goat',e:'🐐',m:3,t:'Goat Nutrition Guide',d:'Essential nutrients and feeding recommendations for healthy goats.',b:['Goats need good quality roughage first: pasture, browse or hay.','Add minerals formulated for goats. Copper needs differ from sheep.','Always provide clean water and change feed gradually over 7–10 days.'],k:['Roughage first, grain second','Use goat-specific minerals','Change feeds slowly']},
+ poultry:{tag:'Poultry',e:'🐓',m:3,t:'Poultry Vaccination Schedule',d:'Keep your flock protected with the right vaccination schedule.',b:['Chicks are usually vaccinated against Marek’s disease at hatch, then Newcastle disease and infectious bronchitis in the first weeks.','Schedules vary by region and flock type. Confirm yours with a local vet.','Record every vaccination date so boosters are not missed.'],k:['Vaccinate from day one','Confirm the schedule locally','Keep written records']},
+ dog:{tag:'Dogs',e:'🐕',m:3,t:'Dog Vaccination Basics',d:'Core vaccines every dog needs and when to give them.',b:['Core vaccines cover parvovirus, distemper, adenovirus and rabies.','Puppies start at 6–8 weeks with boosters every 3–4 weeks until about 16 weeks.','Adult dogs need boosters on the schedule your vet recommends.'],k:['Start puppies at 6–8 weeks','Finish the full series','Keep boosters current']},
+ heat:{tag:'General',e:'☀️',m:2,t:'Spotting Heat Stress',d:'Signs of heat stress in farm animals and how to cool them safely.',b:['Look for heavy panting, drooling, weakness and reduced eating.','Move animals to shade, offer cool water, and use fans or sprinklers if you can.','Call a vet if an animal collapses or does not recover quickly.'],k:['Shade and water first','Cool gradually','Call a vet if it collapses']},
+ aid:{tag:'General',e:'🩹',m:4,t:'First Aid for Farm Animals',d:'What to keep in your kit and what to do before the vet arrives.',b:['Keep a thermometer, clean bandages, saline, gloves and your vet’s number together.','Control bleeding with firm pressure and keep the animal calm and still.','First aid buys time. It does not replace a vet visit.'],k:['Build a kit now','Pressure stops most bleeding','Always follow up with a vet']}};
 const vets=[
  {n:'Greenfield Veterinary Hospital',t:'Vet',km:2.4,h:'Open 24 hours',tel:'+10000000001',tw:true},
  {n:'Riverside Large Animal Clinic',t:'Vet',km:5.1,h:'8am – 6pm',tel:'+10000000002'},
  {n:'Happy Tails Shelter',t:'Shelter',km:3.8,h:'9am – 5pm',tel:'+10000000003'},
  {n:'Farm Animal Rescue Network',t:'Rescue',km:7.2,h:'Open 24 hours',tel:'+10000000004',tw:true},
  {n:'Village Vet Care',t:'Vet',km:9.6,h:'9am – 4pm',tel:'+10000000005'}];
-let sel=new Set(),kbQ='',kbTag='All',vf='All';
-let settings={name:'RMD Boys',notify:true,units:'km'};
+const services={Vet:['Large animal care','Vaccinations','Emergency surgery','Lab tests'],Shelter:['Adoption','Temporary housing','Vaccination clinics'],Rescue:['Animal rescue','Transport','Foster network']};
+let sel=new Set(),kbQ='',kbTag='All',vf='All',cur='home';
+let settings={name:'RMD Boys',notify:true,units:'km',saved:[]};
 const KEY='oac_v1';
 try{const sv=JSON.parse(localStorage.getItem(KEY));if(sv){animals=sv.animals||animals;reminders=sv.reminders||reminders;nextId=sv.nextId||nextId;Object.assign(settings,sv.settings)}}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify({animals,reminders,nextId,settings}))}catch(e){}}
-const dist=k=>settings.units=='mi'?(k*0.621).toFixed(1)+' mi':k+' km';
-const applyName=()=>{$('#userName').textContent=settings.name};
 
 /* ---------- helpers ---------- */
-let tt;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),1800)}
+let tt;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2000)}
 function modal(h){$('#modalBody').innerHTML=h;$('#overlay').hidden=false}
 function closeModal(){$('#overlay').hidden=true}
 const yrs=n=>n+' year'+(n==1?'':'s');
 const fmt=d=>new Date(d+'T00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+const today=()=>new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+const dist=k=>settings.units=='mi'?(k*0.621).toFixed(1)+' mi':k+' km';
+const applyName=()=>{$('#userName').textContent=settings.name};
+const lnk=(v,a)=>v+(a?'/'+encodeURIComponent(a):'');
+const copy=(t,m)=>{navigator.clipboard?navigator.clipboard.writeText(t).then(()=>toast(m),()=>toast(t)):toast(t)};
+const head=(t,p)=>`<div class="page-head"><h1>${t}</h1><p>${p}</p></div>`;
+const back='<button class="link" data-back style="margin:6px 0 10px">← Back</button>';
+const badge=a=>`<span class="badge ${a.status=='Healthy'?'ok':'due'}" style="margin:0">${a.status}</span>`;
+const nf=()=>head('Not found','That page does not exist.')+'<button class="btn" data-go="home">Go home</button>';
+const dCard=d=>`<button class="card" data-go="disease/${d.id}"><span class="big">${d.e}</span><h3>${d.name}</h3><small>${d.sp} • ${d.urg}</small><p>${d.about}</p></button>`;
+const artCards=l=>l.map(k=>{const a=articles[k];return `<button class="card" data-go="article/${k}"><span class="big">${a.e}</span><h3>${a.t}</h3><small>${a.tag} • ${a.m} min read</small><p>${a.d}</p></button>`}).join('');
+const rowBtn=(go,t,s)=>`<button class="row" style="width:100%;text-align:left" data-go="${go}"><span class="grow"><b>${t}</b><br><small style="color:var(--muted)">${s}</small></span>›</button>`;
 
 /* ---------- home side panels ---------- */
 function renderSide(){
- $('#animalList').innerHTML=animals.map(a=>`<button class="animal" data-animal="${a.id}"><span class="pic">${a.emoji}</span><span><b>${esc(a.name)}</b><small>${a.type} • ${yrs(a.age)}</small></span><span class="badge ${a.status=='Healthy'?'ok':'due'}">${a.status}</span></button>`).join('');
- $('#reminderList').innerHTML=reminders.slice(0,4).map(r=>`<button class="reminder ${r.done?'done':''}" data-reminder="${r.id}"><span class="ic"><svg><use href="#cal"/></svg></span><span><b>${esc(r.text)}</b><small>${r.date}</small></span></button>`).join('');
+ $('#animalList').innerHTML=animals.map(a=>`<button class="animal" data-go="animal/${a.id}"><span class="pic">${a.emoji}</span><span><b>${esc(a.name)}</b><small>${a.type} • ${yrs(a.age)}</small></span><span class="badge ${a.status=='Healthy'?'ok':'due'}">${a.status}</span></button>`).join('');
+ $('#reminderList').innerHTML=reminders.slice(0,4).map(r=>`<button class="reminder ${r.done?'done':''}" data-go="reminder/${r.id}"><span class="ic"><svg><use href="#cal"/></svg></span><span><b>${esc(r.text)}</b><small>${r.date}</small></span></button>`).join('');
  $('#dot').hidden=!(settings.notify&&reminders.some(r=>!r.done));
 }
 
-/* ---------- views ---------- */
-const head=(t,p)=>`<div class="page-head"><h1>${t}</h1><p>${p}</p></div>`;
+/* ---------- pages ---------- */
 const views={
- health:()=>head('Animal Health','Tap a condition to see signs, prevention and when to get help.')+`<div class="grid">${diseases.map(d=>`<button class="card" data-disease="${d.id}"><span class="big">${d.e}</span><h3>${d.name}</h3><small>${d.sp} • ${d.urg}</small><p>${d.about}</p></button>`).join('')}</div>`,
+ features:()=>head('Features','Everything in one place. Tap any feature to open it.')+`<div class="grid">${[['🔎','Symptom Checker','Find possible conditions based on symptoms.','symptom'],['📖','Animal Health','Disease information and prevention.','health'],['📅','Vaccination Calendar','Track vaccines and checkups.','calendar'],['🐾','My Animals','Profiles and health records.','animals'],['📍','Veterinary & Rescue','Vets, shelters and rescue services.','vets'],['📚','Knowledge Base','Guides and articles.','kb'],['🚨','Emergency Help','First steps and 24-hour contacts.','emergency']].map(f=>`<button class="card" data-go="${f[3]}"><span class="big">${f[0]}</span><h3>${f[1]}</h3><p>${f[2]}</p></button>`).join('')}</div>`,
+ health:()=>head('Animal Health','Tap a condition to read about signs, prevention and what to do.')+`<div class="grid">${diseases.map(dCard).join('')}</div>`,
+ disease:id=>{const d=diseases.find(x=>x.id==id);if(!d)return nf();const em=d.urg.startsWith('Emergency');const tag={Cattle:'Cattle',Goat:'Goat',Poultry:'Poultry',Dog:'Dogs'}[d.sp]||'General';
+  const steps=em?['Keep the animal calm and separate it from others.','Wear gloves and wash hands after contact.','Call a vet or your local animal-health authority straight away.','Do not move the animal or give medicine unless advised.']:['Monitor temperature, eating and behaviour.','Separate the animal if others could be at risk.','Book a vet visit within 1–2 days, sooner if it worsens.','Write down the symptoms and when they began.'];
+  return back+`<div class="hero-sm"><span class="big">${d.e}</span><div><h1>${d.name}</h1><small>${d.sp}</small> <span class="badge ${em?'due':'ok'}">${d.urg}</span></div></div><div class="two"><div class="card"><h3>About</h3><p>${d.about}</p><h3>Signs to watch for</h3><div class="chips">${d.sym.map(x=>`<button class="chip" data-go="${lnk('symptom',x)}">${x}</button>`).join('')}</div><small>Tap a sign to check it in the Symptom Checker.</small></div><div class="card"><h3>What to do now</h3><ol>${steps.map(x=>`<li>${x}</li>`).join('')}</ol><h3>Prevention</h3><p>${d.prev}</p><div class="acts"><button class="btn sm" data-go="vets">Find a vet</button>${em?'<button class="btn ghost sm" data-go="emergency">Emergency help</button>':''}</div></div></div><h2 style="margin:22px 0 12px">Related reading</h2><div class="grid">${artCards(Object.keys(articles).filter(k=>articles[k].tag==tag||articles[k].tag=='General').slice(0,3))}</div>`},
  symptom:()=>{const all=[...new Set(diseases.flatMap(d=>d.sym))].sort();
   const res=diseases.map(d=>({d,m:d.sym.filter(x=>sel.has(x)).length})).filter(x=>x.m).sort((a,b)=>b.m-a.m);
-  return head('Symptom Checker','Select what you are seeing to find possible conditions.')+`<div class="note">This is general information, not a diagnosis. If an animal is in distress, contact a vet.</div><div class="chips">${all.map(x=>`<button class="chip ${sel.has(x)?'on':''}" data-sym="${esc(x)}">${x}</button>`).join('')}</div>${sel.size?`<button class="btn ghost sm" data-clear>Clear selection</button>`:''}<h2 style="margin:18px 0 12px">${sel.size?'Possible conditions':'Pick at least one symptom'}</h2><div class="grid">${res.map(({d,m})=>`<button class="card" data-disease="${d.id}"><span class="big">${d.e}</span><h3>${d.name}</h3><small>${m} of ${d.sym.length} symptoms match • ${d.urg}</small></button>`).join('')}</div>`},
- calendar:()=>head('Vaccination Calendar','Track vaccines, deworming and checkups.')+`<form class="card" data-form="reminder"><label class="f">Animal<select class="in" name="a">${animals.map(a=>`<option>${esc(a.name)}</option>`).join('')}</select></label><label class="f">What<input class="in" name="t" placeholder="e.g. Rabies vaccine" required></label><label class="f">Date<input class="in" type="date" name="d" required></label><button class="btn sm">Add reminder</button></form>`+reminders.map(r=>`<div class="row ${r.done?'done':''}"><span class="grow"><b>${esc(r.text)}</b><br><small style="color:var(--muted)">${r.date}</small></span><button class="btn ghost sm" data-toggle="${r.id}">${r.done?'Undo':'Mark done'}</button><button aria-label="Delete" data-del="${r.id}" style="font-size:20px;color:var(--muted)">×</button></div>`).join(''),
- animals:()=>head('My Animals','Everyone you look after, in one place.')+`<form class="card" data-form="animal"><label class="f">Name<input class="in" name="n" required></label><label class="f">Type<select class="in" name="t">${Object.keys(emojiOf).map(k=>`<option>${k}</option>`).join('')}</select></label><label class="f">Age (years)<input class="in" type="number" name="a" min="0" max="40" value="1" required></label><button class="btn sm">Add animal</button></form><div class="grid">${animals.map(a=>`<button class="card" data-animal="${a.id}"><span class="big">${a.emoji}</span><h3>${esc(a.name)}</h3><small>${a.type} • ${yrs(a.age)}</small><span class="badge ${a.status=='Healthy'?'ok':'due'}" style="align-self:flex-start;margin:0">${a.status}</span></button>`).join('')}</div>`,
- vets:()=>head('Veterinary & Rescue','Find nearby help. Tap Call to phone, or Directions to open a map.')+`<div class="chips">${['All','Vet','Shelter','Rescue','Open 24h'].map(x=>`<button class="chip ${vf==x?'on':''}" data-vf="${x}">${x}</button>`).join('')}</div>`+vets.map((v,i)=>({v,i})).filter(({v})=>vf=='All'||v.t==vf||(vf=='Open 24h'&&v.tw)).map(({v,i})=>`<div class="row"><span class="big" style="font-size:28px">📍</span><span class="grow"><b>${v.n}</b><br><small style="color:var(--muted)">${v.t} • ${dist(v.km)} • ${v.h}</small></span><button class="btn sm" data-call="${i}">Call</button><a class="btn ghost sm" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(v.n)}">Directions</a></div>`).join(''),
- kb:()=>head('Knowledge Base','Guides and articles for every animal.')+`<input class="in" id="kbInput" style="width:100%;max-width:420px" placeholder="Search articles…" value="${esc(kbQ)}"><div class="chips">${['All','Cattle','Goat','Poultry','Dogs','General'].map(x=>`<button class="chip ${kbTag==x?'on':''}" data-kbtag="${x}">${x}</button>`).join('')}</div><div class="grid" id="kbList"></div>`
+  return head('Symptom Checker','Select what you are seeing to find possible conditions.')+`<div class="note">This is general information, not a diagnosis. If an animal is in distress, contact a vet.</div><div class="chips">${all.map(x=>`<button class="chip ${sel.has(x)?'on':''}" data-sym="${esc(x)}">${x}</button>`).join('')}</div>${sel.size?`<button class="btn ghost sm" data-clear>Clear selection</button>`:''}<h2 style="margin:18px 0 12px">${sel.size?'Possible conditions':'Pick at least one symptom'}</h2><div class="grid">${res.map(({d,m})=>`<button class="card" data-go="disease/${d.id}"><span class="big">${d.e}</span><h3>${d.name}</h3><small>${m} of ${d.sym.length} symptoms match • ${d.urg}</small></button>`).join('')}</div>`},
+ calendar:()=>head('Vaccination Calendar','Track vaccines, deworming and checkups.')+`<form class="card" data-form="reminder"><label class="f">Animal<select class="in" name="a">${animals.map(a=>`<option>${esc(a.name)}</option>`).join('')}</select></label><label class="f">What<input class="in" name="t" placeholder="e.g. Rabies vaccine" required></label><label class="f">Date<input class="in" type="date" name="d" required></label><button class="btn sm">Add reminder</button></form>`+(reminders.map(r=>`<div class="row ${r.done?'done':''}"><button class="grow" style="text-align:left" data-go="reminder/${r.id}"><b>${esc(r.text)}</b><br><small style="color:var(--muted)">${r.date}</small></button><button class="btn ghost sm" data-toggle="${r.id}">${r.done?'Undo':'Mark done'}</button><button aria-label="Delete" data-del="${r.id}" style="font-size:20px;color:var(--muted)">×</button></div>`).join('')||'<p class="empty">No reminders yet.</p>'),
+ reminder:id=>{const r=reminders.find(x=>x.id==id);if(!r)return nf();const a=animals.find(x=>r.text.startsWith(x.name));
+  return back+`<div class="hero-sm"><span class="big">📅</span><div><h1>${esc(r.text)}</h1><small>Due ${r.date}</small> <span class="badge ${r.done?'ok':'due'}">${r.done?'Done':'Upcoming'}</span></div></div><div class="two"><div class="card"><h3>Actions</h3><div class="acts"><button class="btn sm" data-toggle="${r.id}">${r.done?'Mark as upcoming':'Mark as done'}</button>${a?`<button class="btn ghost sm" data-go="animal/${a.id}">Open ${esc(a.name)}</button>`:''}<button class="btn ghost sm" data-del="${r.id}">Delete</button></div></div><form class="card" data-form="resched" style="flex-direction:column;align-items:stretch"><h3>Reschedule</h3><input type="hidden" name="id" value="${r.id}"><label class="f">New date<input class="in" type="date" name="d" required></label><button class="btn sm" style="align-self:flex-start">Update date</button></form></div>`},
+ animals:()=>head('My Animals','Everyone you look after, in one place.')+`<form class="card" data-form="animal"><label class="f">Name<input class="in" name="n" required></label><label class="f">Type<select class="in" name="t">${Object.keys(emojiOf).map(k=>`<option>${k}</option>`).join('')}</select></label><label class="f">Age (years)<input class="in" type="number" name="a" min="0" max="40" value="1" required></label><button class="btn sm">Add animal</button></form><div class="grid">${animals.map(a=>`<button class="card" data-go="animal/${a.id}"><span class="big">${a.emoji}</span><h3>${esc(a.name)}</h3><small>${a.type} • ${yrs(a.age)}</small>${badge(a)}</button>`).join('')}</div>`,
+ animal:id=>{const a=animals.find(x=>x.id==id);if(!a)return nf();const ok=a.status=='Healthy';const rs=reminders.filter(r=>r.text.startsWith(a.name));
+  return back+`<div class="hero-sm"><span class="big">${a.emoji}</span><div><h1>${esc(a.name)}</h1><small>${a.type} • ${yrs(a.age)}</small> ${badge(a)}</div></div><div class="two"><form class="card" data-form="animaledit" style="flex-direction:column;align-items:stretch"><input type="hidden" name="id" value="${a.id}"><h3>Details</h3><label class="f">Name<input class="in" name="n" value="${esc(a.name)}" required></label><label class="f">Age (years)<input class="in" type="number" name="a" min="0" max="40" value="${a.age}"></label><label class="f">Notes<textarea class="in" name="t" rows="3">${esc(a.note)}</textarea></label><div class="acts"><button class="btn sm">Save changes</button><button type="button" class="btn ghost sm" data-status="${a.id}">${ok?'Mark vaccination due':'Mark as healthy'}</button><button type="button" class="btn ghost sm" data-remove="${a.id}">Remove</button></div></form><div><div class="card"><h3>Health records</h3>${(a.records||[]).map(r=>`<div class="rec"><b>${r.d}</b> – ${esc(r.t)}</div>`).join('')||'<small>No records yet.</small>'}<form data-form="record" class="acts" style="align-items:flex-end"><input type="hidden" name="id" value="${a.id}"><label class="f">New record<input class="in" name="t" placeholder="e.g. Hooves trimmed" required></label><button class="btn sm">Add</button></form></div><div class="card" style="margin-top:14px"><h3>Reminders</h3>${rs.map(r=>rowBtn('reminder/'+r.id,esc(r.text),r.date+(r.done?' • done':''))).join('')||'<small>None scheduled.</small>'}<div class="acts"><button class="btn ghost sm" data-go="calendar">Add reminder</button><button class="btn ghost sm" data-go="symptom">Check symptoms</button></div></div></div></div>`},
+ vets:()=>head('Veterinary & Rescue','Find nearby help. Tap any place for contact details and to book.')+`<div class="chips">${['All','Vet','Shelter','Rescue','Open 24h'].map(x=>`<button class="chip ${vf==x?'on':''}" data-vf="${x}">${x}</button>`).join('')}</div>`+vets.map((v,i)=>({v,i})).filter(({v})=>vf=='All'||v.t==vf||(vf=='Open 24h'&&v.tw)).map(({v,i})=>`<div class="row"><span class="big" style="font-size:28px">📍</span><button class="grow" style="text-align:left" data-go="vet/${i}"><b>${v.n}</b><br><small style="color:var(--muted)">${v.t} • ${dist(v.km)} • ${v.h}</small></button><button class="btn sm" data-go="vet/${i}">Details</button><a class="btn ghost sm" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(v.n)}">Directions</a></div>`).join(''),
+ vet:i=>{const v=vets[i];if(!v)return nf();
+  return back+`<div class="hero-sm"><span class="big">📍</span><div><h1>${v.n}</h1><small>${v.t} • ${dist(v.km)} away • ${v.h}</small></div></div><div class="two"><div class="card"><h3>Contact</h3><p>${12+i*7} Meadow Lane<br><b style="font-size:20px">${v.tel}</b></p><small>Placeholder details. Replace with real listings.</small><div class="acts"><a class="btn sm" href="tel:${v.tel}">Call now</a><button class="btn ghost sm" data-copy="${v.tel}">Copy number</button><a class="btn ghost sm" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(v.n)}">Directions</a></div><h3 style="margin-top:14px">Services</h3><div class="chips">${services[v.t].map(x=>`<span class="chip static">${x}</span>`).join('')}</div></div><form class="card" data-form="appt" style="flex-direction:column;align-items:stretch"><h3>Request an appointment</h3><input type="hidden" name="i" value="${i}"><label class="f">Animal<select class="in" name="a">${animals.map(a=>`<option>${esc(a.name)}</option>`).join('')}</select></label><label class="f">Preferred date<input class="in" type="date" name="d" required></label><label class="f">Reason<input class="in" name="r" placeholder="e.g. Vaccination" required></label><button class="btn sm" style="align-self:flex-start">Send request</button></form></div>`},
+ emergency:()=>head('Emergency Help','Stay calm and follow these steps while you get help.')+`<div class="note" style="background:#fde7e3">If a person is in danger, call your local emergency number first.</div><div class="two"><div class="card"><h3>First steps</h3><ol><li>Move the animal to a safe, calm place.</li><li>Check breathing, bleeding and responsiveness.</li><li>Control bleeding with firm, clean pressure.</li><li>Keep the animal warm, or cool if it is overheated.</li><li>Call a vet and describe what you see.</li></ol></div><div class="card"><h3>Open 24 hours</h3>${vets.map((v,i)=>({v,i})).filter(({v})=>v.tw).map(({v,i})=>rowBtn('vet/'+i,v.n,dist(v.km)+' • '+v.tel)).join('')}</div></div><h2 style="margin:22px 0 12px">Common emergencies</h2><div class="grid">${diseases.filter(d=>d.urg.startsWith('Emergency')).map(dCard).join('')}</div>`,
+ kb:()=>head('Knowledge Base','Guides and articles for every animal.')+`<input class="in" id="kbInput" style="width:100%;max-width:420px" placeholder="Search articles…" value="${esc(kbQ)}"><div class="chips">${['All','Saved','Cattle','Goat','Poultry','Dogs','General'].map(x=>`<button class="chip ${kbTag==x?'on':''}" data-kbtag="${x}">${x}</button>`).join('')}</div><div class="grid" id="kbList"></div>`,
+ article:k=>{const a=articles[k];if(!a)return nf();const sv=settings.saved.includes(k);
+  return back+`<div class="hero-sm"><span class="big">${a.e}</span><div><button class="chip" data-go="${lnk('kb',a.tag)}">${a.tag}</button><h1>${a.t}</h1><small>${a.m} min read</small></div></div><div class="two"><div class="card">${a.b.map(x=>`<p>${x}</p>`).join('')}<div class="acts"><button class="btn sm" data-save="${k}">${sv?'★ Saved':'☆ Save article'}</button><button class="btn ghost sm" data-share>Share link</button></div></div><div class="card"><h3>Key takeaways</h3><ul>${a.k.map(x=>`<li>${x}</li>`).join('')}</ul></div></div><h2 style="margin:22px 0 12px">More to read</h2><div class="grid">${artCards(Object.keys(articles).filter(x=>x!=k).sort((x,y)=>(articles[y].tag==a.tag)-(articles[x].tag==a.tag)).slice(0,3))}</div>`},
+ notifications:()=>{const o=reminders.filter(r=>!r.done),dn=reminders.filter(r=>r.done);return head('Notifications','Reminders that need your attention.')+(o.map(r=>rowBtn('reminder/'+r.id,esc(r.text),'Due '+r.date)).join('')||'<p class="empty">You are all caught up.</p>')+(dn.length?'<h2 style="margin:18px 0 12px">Completed</h2>'+dn.map(r=>rowBtn('reminder/'+r.id,esc(r.text),r.date)).join(''):'')},
+ profile:()=>head(esc(settings.name),'Your account')+`<div class="grid"><button class="card" data-go="animals"><span class="big">${animals.length}</span><h3>Animals</h3></button><button class="card" data-go="calendar"><span class="big">${reminders.filter(r=>!r.done).length}</span><h3>Upcoming reminders</h3></button><button class="card" data-go="kb/Saved"><span class="big">${settings.saved.length}</span><h3>Saved articles</h3></button></div><div class="acts"><button class="btn sm" data-go="settings">Settings</button><button class="btn ghost sm" data-signout>Sign out</button></div>`,
+ settings:()=>head('Settings','Saved on this device.')+`<form class="card" data-form="settings" style="flex-direction:column;align-items:stretch;max-width:520px"><label class="f">Display name<input class="in" name="name" value="${esc(settings.name)}" maxlength="30"></label><label class="f">Distance units<select class="in" name="units"><option value="km" ${settings.units=='km'?'selected':''}>Kilometres</option><option value="mi" ${settings.units=='mi'?'selected':''}>Miles</option></select></label><label style="display:flex;gap:10px;align-items:center;font-size:14px"><input type="checkbox" name="notify" ${settings.notify?'checked':''}> Show reminder alerts on the bell</label><div class="acts"><button class="btn sm">Save</button><button type="button" class="btn ghost sm" data-reset>Reset all data</button></div></form>`
 };
 function kbList(){const l=$('#kbList');if(!l)return;const q=kbQ.toLowerCase();
- const r=Object.entries(articles).filter(([k,a])=>(kbTag=='All'||a.tag==kbTag)&&(a.t+a.d).toLowerCase().includes(q));
- l.innerHTML=r.length?r.map(([k,a])=>`<button class="card" data-article="${k}"><span class="big">${a.e}</span><h3>${a.t}</h3><small>${a.tag}</small><p>${a.d}</p></button>`).join(''):'<p class="empty">No articles match your search.</p>'}
-let cur='home';
-function go(v){cur=v;const home=v=='home';
- $$('#nav a').forEach(a=>a.classList.toggle('active',a.dataset.go==v));
- $('#home').hidden=!home;$('#page').hidden=home;$('#contentWrap').classList.toggle('single',!home);
- if(!home){$('#page').innerHTML=views[v]();if(v=='kb')kbList()}
- $('#sidebar').classList.remove('open');$$('.pop').forEach(p=>p.hidden=true);scrollTo({top:0})}
-function refresh(){save();renderSide();if(cur!='home')go(cur)}
+ const r=Object.keys(articles).filter(k=>{const a=articles[k];return (kbTag=='All'||(kbTag=='Saved'?settings.saved.includes(k):a.tag==kbTag))&&(a.t+a.d).toLowerCase().includes(q)});
+ l.innerHTML=r.length?artCards(r):`<p class="empty">${kbTag=='Saved'&&!q?'Nothing saved yet. Open an article and tap Save.':'No articles match your search.'}</p>`}
 
-/* ---------- modals ---------- */
-function showDisease(id){const d=diseases.find(x=>x.id==id);
- modal(`<h2>${d.e} ${d.name}</h2><small style="color:var(--muted)">${d.sp} • ${d.urg}</small><p>${d.about}</p><h4>Signs to watch for</h4><div class="chips">${d.sym.map(x=>`<span class="chip static">${x}</span>`).join('')}</div><h4>Prevention</h4><p>${d.prev}</p><div class="acts"><button class="btn sm" data-go="vets">Find a vet</button><button class="btn ghost sm" data-close>Close</button></div>`)}
-function showArticle(k){const a=articles[k];
- modal(`<small style="color:var(--green-800);font-weight:600">${a.tag}</small><h2>${a.e} ${a.t}</h2>${a.b.map(x=>`<p>${x}</p>`).join('')}<div class="acts"><button class="btn sm" data-go="kb">More articles</button><button class="btn ghost sm" data-close>Close</button></div>`)}
-function showAnimal(id){const a=animals.find(x=>x.id==id);const ok=a.status=='Healthy';
- modal(`<h2>${a.emoji} ${esc(a.name)}</h2><small style="color:var(--muted)">${a.type} • ${yrs(a.age)}</small><p><span class="badge ${ok?'ok':'due'}" style="margin:0">${a.status}</span></p><form data-form="note"><input type="hidden" name="id" value="${a.id}"><label class="f">Notes<textarea class="in" name="n" rows="3">${esc(a.note)}</textarea></label><div class="acts"><button class="btn sm">Save notes</button><button type="button" class="btn ghost sm" data-status="${a.id}">${ok?'Mark vaccination due':'Mark as healthy'}</button></div></form><div class="acts"><button class="btn ghost sm" data-go="calendar">View reminders</button><button class="btn ghost sm" data-go="symptom">Check symptoms</button><button class="btn ghost sm" data-remove="${a.id}">Remove</button></div>`)}
-function showProfile(){const n=reminders.filter(r=>!r.done).length;modal(`<h2>${esc(settings.name)}</h2><p>Caring for ${animals.length} animal${animals.length==1?'':'s'}. ${n} upcoming reminder${n==1?'':'s'}.</p><div class="acts"><button class="btn sm" data-settings>Edit in Settings</button><button class="btn ghost sm" data-go="animals">My animals</button></div>`)}
-function showSettings(){modal(`<h2>Settings</h2><form data-form="settings" style="display:flex;flex-direction:column;gap:14px;margin-top:12px"><label class="f">Display name<input class="in" name="name" value="${esc(settings.name)}" maxlength="30"></label><label class="f">Distance units<select class="in" name="units"><option value="km" ${settings.units=='km'?'selected':''}>Kilometres</option><option value="mi" ${settings.units=='mi'?'selected':''}>Miles</option></select></label><label style="display:flex;gap:10px;align-items:center;font-size:14px"><input type="checkbox" name="notify" ${settings.notify?'checked':''}> Show reminder alerts on the bell</label><div class="acts"><button class="btn sm">Save</button><button type="button" class="btn ghost sm" data-reset>Reset all data</button></div></form>`)}
-function showCall(i){const v=vets[i];modal(`<h2>${v.n}</h2><p>${v.t} • ${dist(v.km)} away • ${v.h}</p><p style="font-size:24px;font-weight:700">${v.tel}</p><p><small style="color:var(--muted)">Placeholder number. Replace with real listings.</small></p><div class="acts"><a class="btn sm" href="tel:${v.tel}">Open dialer</a><button class="btn ghost sm" data-copy="${v.tel}">Copy number</button></div>`)}
-function showReminder(id){const r=reminders.find(x=>x.id==id);
- modal(`<h2>${esc(r.text)}</h2><p>Due ${r.date}. Status: <b>${r.done?'Done':'Upcoming'}</b></p><div class="acts"><button class="btn sm" data-toggle="${r.id}" data-close>${r.done?'Mark as upcoming':'Mark as done'}</button><button class="btn ghost sm" data-go="calendar">Open calendar</button></div>`)}
+/* ---------- routing ---------- */
+const navOf={article:'kb',disease:'health',animal:'animals',vet:'vets',emergency:'vets',reminder:'calendar'};
+function go(v,arg,keep){if(v!='home'&&!views[v])v='home';cur=v;
+ if(arg&&v=='symptom'){sel.add(arg);history.replaceState(null,'','#/symptom')}
+ if(arg&&v=='kb'){kbTag=arg;history.replaceState(null,'','#/kb')}
+ const n=navOf[v]||v;$$('#nav a').forEach(a=>a.classList.toggle('active',a.dataset.go==n));
+ const home=v=='home';$('#home').hidden=!home;$('#page').hidden=home;$('#contentWrap').classList.toggle('single',!home);
+ if(!home){$('#page').innerHTML=views[v](arg);if(v=='kb')kbList()}
+ $('#sidebar').classList.remove('open');$$('.pop').forEach(p=>p.hidden=true);if(!keep)scrollTo({top:0})}
+function route(keep){const [v,...r]=location.hash.replace(/^#\/?/,'').split('/');go(v||'home',decodeURIComponent(r.join('/')),keep)}
+function nav(p){if(p=='kb'){kbTag='All';kbQ='';$('#searchInput').value=''}if(p=='vets')vf='All';const h='#/'+p;if(location.hash==h)route();else location.hash=h}
+function refresh(){save();renderSide();route(true)}
+window.addEventListener('hashchange',()=>route());
 
 /* ---------- events ---------- */
+const SEL='[data-go],[data-back],[data-toggle],[data-del],[data-sym],[data-clear],[data-vf],[data-kbtag],[data-remove],[data-confirmremove],[data-close],[data-signout],[data-dosignout],[data-signin],[data-copy],[data-status],[data-save],[data-share],[data-reset],#bellBtn,#userBtn,#overlay';
 document.addEventListener('click',e=>{
- const t=e.target.closest('[data-go],[data-article],[data-animal],[data-disease],[data-reminder],[data-toggle],[data-del],[data-sym],[data-clear],[data-vf],[data-kbtag],[data-remove],[data-close],[data-toast],[data-profile],[data-settings],[data-signout],[data-dosignout],[data-signin],[data-call],[data-copy],[data-status],[data-reset],#bellBtn,#userBtn,#overlay');
+ const t=e.target.closest(SEL);
  if(!e.target.closest('.rel'))$$('.pop').forEach(p=>p.hidden=true);
  if(!t)return;const d=t.dataset;
  if(t.id=='overlay'){if(e.target.id=='overlay')closeModal();return}
- if(t.tagName=='A'&&!(t.getAttribute('href')||'').startsWith('tel:')&&!t.target)e.preventDefault();
- if(t.id=='bellBtn'){const p=$('#bellPop');const open=reminders.filter(r=>!r.done);const was=p.hidden;$$('.pop').forEach(x=>x.hidden=true);
-  p.innerHTML='<h4>Notifications</h4>'+(open.length?open.map(r=>`<button data-go="calendar"><b>${esc(r.text)}</b><small>${r.date}</small></button>`).join(''):'<h4 style="font-weight:400">You are all caught up.</h4>');p.hidden=!was;return}
- if(t.id=='userBtn'){const p=$('#userPop');const was=p.hidden;$$('.pop').forEach(x=>x.hidden=true);p.hidden=!was;return}
- if('profile' in d){showProfile();$$('.pop').forEach(p=>p.hidden=true);return}
- if('settings' in d){showSettings();$$('.pop').forEach(p=>p.hidden=true);return}
+ if(t.tagName=='A')e.preventDefault();
+ if(t.id=='bellBtn'){const p=$('#bellPop'),was=p.hidden,o=reminders.filter(r=>!r.done);$$('.pop').forEach(x=>x.hidden=true);
+  p.innerHTML='<h4>Notifications</h4>'+(o.length?o.slice(0,4).map(r=>`<button data-go="reminder/${r.id}"><b>${esc(r.text)}</b><small>${r.date}</small></button>`).join('')+'<button data-go="notifications" style="color:var(--green-800);font-weight:600">View all</button>':'<h4 style="font-weight:400">You are all caught up.</h4>');p.hidden=!was;return}
+ if(t.id=='userBtn'){const p=$('#userPop'),was=p.hidden;$$('.pop').forEach(x=>x.hidden=true);p.hidden=!was;return}
+ if('back' in d){history.length>1?history.back():(location.hash='#/');return}
+ if(d.go!==undefined){closeModal();nav(d.go);return}
+ if(d.toggle){const r=reminders.find(x=>x.id==d.toggle);r.done=!r.done;refresh();return}
+ if(d.del){reminders=reminders.filter(x=>x.id!=d.del);save();renderSide();cur=='reminder'?nav('calendar'):route(true);toast('Reminder deleted');return}
+ if(d.remove){const a=animals.find(x=>x.id==d.remove);modal(`<h2>Remove ${esc(a.name)}?</h2><p>This deletes the animal and its health records.</p><div class="acts"><button class="btn sm" data-confirmremove="${a.id}">Remove</button><button class="btn ghost sm" data-close>Cancel</button></div>`);return}
+ if(d.confirmremove){animals=animals.filter(x=>x.id!=d.confirmremove);closeModal();save();renderSide();nav('animals');toast('Animal removed');return}
+ if(d.sym){sel.has(d.sym)?sel.delete(d.sym):sel.add(d.sym);go('symptom','',true);return}
+ if('clear' in d){sel.clear();go('symptom','',true);return}
+ if(d.vf){vf=d.vf;go('vets','',true);return}
+ if(d.kbtag){kbTag=d.kbtag;go('kb','',true);return}
+ if(d.save){const i=settings.saved.indexOf(d.save);i<0?settings.saved.push(d.save):settings.saved.splice(i,1);toast(i<0?'Article saved':'Removed from saved');refresh();return}
+ if('share' in d){copy(location.href,'Link copied');return}
+ if(d.copy){copy(d.copy,'Number copied');return}
+ if(d.status){const a=animals.find(x=>x.id==d.status);a.status=a.status=='Healthy'?'Vaccination Due':'Healthy';refresh();return}
  if('signout' in d){modal('<h2>Sign out?</h2><p>Your animals and reminders stay saved on this device.</p><div class="acts"><button class="btn sm" data-dosignout>Sign out</button><button class="btn ghost sm" data-close>Cancel</button></div>');$$('.pop').forEach(p=>p.hidden=true);return}
  if('dosignout' in d){closeModal();$('#signed').hidden=false;return}
- if('signin' in d){$('#signed').hidden=true;go('home');toast('Welcome back, '+settings.name);return}
- if(d.call){showCall(+d.call);return}
- if(d.copy){navigator.clipboard?navigator.clipboard.writeText(d.copy).then(()=>toast('Number copied'),()=>toast(d.copy)):toast(d.copy);return}
- if(d.status){const a=animals.find(x=>x.id==d.status);a.status=a.status=='Healthy'?'Vaccination Due':'Healthy';refresh();showAnimal(a.id);return}
- if('reset' in d){if(confirm('Erase all saved data and restore the demo data?')){try{localStorage.removeItem(KEY)}catch(e){}location.reload()}return}
- if(d.toast)toast('Prototype: '+d.toast);
- if(d.toggle){const r=reminders.find(x=>x.id==d.toggle);r.done=!r.done;refresh();if(!('close' in d))return}
- if(d.del){reminders=reminders.filter(x=>x.id!=d.del);refresh();return}
- if(d.remove){animals=animals.filter(x=>x.id!=d.remove);closeModal();refresh();toast('Animal removed');return}
- if(d.sym){sel.has(d.sym)?sel.delete(d.sym):sel.add(d.sym);go('symptom');return}
- if('clear' in d){sel.clear();go('symptom');return}
- if(d.vf){vf=d.vf;go('vets');return}
- if(d.kbtag){kbTag=d.kbtag;go('kb');return}
- if(d.article){closeModal();showArticle(d.article);return}
- if(d.disease){showDisease(d.disease);return}
- if(d.animal){showAnimal(d.animal);return}
- if(d.reminder){showReminder(d.reminder);return}
+ if('signin' in d){$('#signed').hidden=true;nav('home');toast('Welcome back, '+settings.name);return}
+ if('reset' in d){if(confirm('Erase all saved data and restore the demo data?')){try{localStorage.removeItem(KEY)}catch(e){}location.hash='#/';location.reload()}return}
  if('close' in d)closeModal();
- if(d.go){if('emergency' in d)vf='Open 24h';else if(d.go=='vets')vf='All';closeModal();go(d.go)}
 });
 document.addEventListener('submit',e=>{const f=e.target.closest('form[data-form]');if(!f)return;e.preventDefault();const v=Object.fromEntries(new FormData(f)),k=f.dataset.form;
- if(k=='animal'){animals.push({id:'a'+nextId++,name:v.n,type:v.t,age:+v.a,emoji:emojiOf[v.t],status:'Healthy',note:'Added just now.'});toast(v.n+' added')}
- else if(k=='note'){animals.find(x=>x.id==v.id).note=v.n;closeModal();toast('Notes saved')}
- else if(k=='settings'){settings.name=v.name.trim()||'RMD Boys';settings.notify='notify' in v;settings.units=v.units;applyName();closeModal();toast('Settings saved')}
+ if(k=='animal'){animals.push({id:'a'+nextId++,name:v.n,type:v.t,age:+v.a,emoji:emojiOf[v.t],status:'Healthy',note:'Added just now.',records:[]});toast(v.n+' added')}
+ else if(k=='animaledit'){const a=animals.find(x=>x.id==v.id),old=a.name;a.name=v.n;a.age=+v.a;a.note=v.t;reminders.forEach(r=>{if(r.text.startsWith(old))r.text=a.name+r.text.slice(old.length)});toast('Changes saved')}
+ else if(k=='record'){const a=animals.find(x=>x.id==v.id);(a.records=a.records||[]).unshift({d:today(),t:v.t});toast('Record added')}
+ else if(k=='settings'){settings.name=v.name.trim()||'RMD Boys';settings.notify='notify' in v;settings.units=v.units;applyName();toast('Settings saved')}
+ else if(k=='appt'){const vt=vets[+v.i];reminders.push({id:nextId++,text:`${v.a} – ${v.r} (${vt.n})`,date:fmt(v.d),done:false});save();renderSide();toast('Request sent. Added to your calendar');nav('calendar');return}
+ else if(k=='resched'){reminders.find(x=>x.id==v.id).date=fmt(v.d);toast('Date updated')}
  else{reminders.push({id:nextId++,text:v.a+' – '+v.t,date:fmt(v.d),done:false});toast('Reminder added')}
  refresh()});
 document.addEventListener('input',e=>{if(e.target.id=='kbInput'){kbQ=e.target.value;kbList()}
- if(e.target.id=='searchInput'&&cur=='home'){const q=e.target.value.trim().toLowerCase();let n=0;$$('.article').forEach(a=>{const m=a.textContent.toLowerCase().includes(q);a.hidden=!m;if(m)n++});$('#noResults').hidden=n>0}});
-$('#searchInput').addEventListener('keydown',e=>{if(e.key=='Enter'){kbQ=e.target.value.trim();kbTag='All';go('kb');$('#kbInput').focus()}});
+ if(e.target.id=='searchInput'){const q=e.target.value.trim();
+  if(cur=='home'){const lq=q.toLowerCase();let n=0;$$('.article').forEach(a=>{const m=a.textContent.toLowerCase().includes(lq);a.hidden=!m;if(m)n++});$('#noResults').hidden=n>0}
+  else{kbQ=q;if(cur!='kb'){kbTag='All';location.hash='#/kb'}else{const ki=$('#kbInput');if(ki)ki.value=q;kbList()}}}});
+$('#searchInput').addEventListener('keydown',e=>{if(e.key=='Enter'){kbQ=e.target.value.trim();kbTag='All';if(cur=='kb')go('kb');else location.hash='#/kb'}});
 document.addEventListener('keydown',e=>{if(e.key=='Escape'){closeModal();$$('.pop').forEach(p=>p.hidden=true)}});
+$('.brand').addEventListener('keydown',e=>{if(e.key=='Enter')nav('home')});
 $('#menuBtn').addEventListener('click',()=>$('#sidebar').classList.toggle('open'));
-$('#searchInput').addEventListener('input',e=>{if(cur=='home')return;kbQ=e.target.value.trim();if(cur!='kb'){kbTag='All';go('kb')}else{const ki=$('#kbInput');if(ki)ki.value=e.target.value;kbList()}});
-$('.brand').addEventListener('keydown',e=>{if(e.key=='Enter')go('home')});
-applyName();renderSide();
+applyName();renderSide();route();
 </script>
+
 </body>
 </html>
