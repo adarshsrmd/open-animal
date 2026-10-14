@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Open Animal Care</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green-900:#0f4a3a; --green-800:#145a46; --green-700:#1a6b54; --green-100:#e3f1e9; --green-50:#eef7f1;
+  --ink:#16302a; --muted:#6b7c76; --line:#e7ece9; --bg:#f7faf8; --card:#fff;
+  --blue-bg:#e6f1fb; --blue:#2a6fb5; --yellow-bg:#fbf3df; --yellow:#c58a10; --purple-bg:#eeeafb; --purple:#6a4fc2;
+  --radius:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--ink);display:flex;font-size:14px}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+:focus-visible{outline:2px solid var(--green-700);outline-offset:2px}
+svg{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+/* Sidebar */
+.sidebar{width:290px;background:linear-gradient(180deg,#0f4a3a,#0b3d30);color:#fff;display:flex;flex-direction:column;padding:28px 12px 24px;position:sticky;top:0;height:100vh;flex:none}
+.brand{display:flex;gap:14px;align-items:center;padding:0 18px 36px}
+.brand svg{font-size:36px;fill:#fff;stroke:none}
+.brand b{font-size:18px;font-weight:700;display:block}
+.brand small{font-size:12px;opacity:.8}
+.nav a{display:flex;align-items:center;gap:18px;padding:14px 20px;border-radius:12px;font-weight:500;font-size:15px;margin-bottom:4px;opacity:.92;transition:background .15s}
+.nav a svg{font-size:22px}
+.nav a:hover{background:rgba(255,255,255,.08)}
+.nav a.active{background:rgba(255,255,255,.14);opacity:1;font-weight:600}
+.side-art{margin-top:auto;text-align:center;font-size:90px;opacity:.28;line-height:1;padding-bottom:18px;letter-spacing:-6px}
+.side-foot{text-align:center;font-size:13px;opacity:.9}
+
+/* Main */
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.topbar{display:flex;align-items:center;gap:24px;padding:20px 24px;background:#fff;border-bottom:1px solid var(--line)}
+.menu-btn{display:none;font-size:24px}
+.search{flex:1;max-width:590px;display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:999px;padding:0 20px;height:46px;color:var(--muted);background:#fff}
+.search input{flex:1;border:0;outline:0;font:inherit;background:none;color:var(--ink)}
+.search svg{font-size:20px}
+.top-right{margin-left:auto;display:flex;align-items:center;gap:22px}
+.bell{font-size:22px;color:var(--muted)}
+.user{display:flex;align-items:center;gap:12px;font-weight:600}
+.avatar{width:38px;height:38px;border-radius:50%;background:#d8dedb;display:grid;place-items:center;color:#8a9a94;font-size:20px;overflow:hidden}
+
+.content{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:24px;padding:16px 16px 40px}
+h2{font-size:20px;font-weight:700}
+.section-head{display:flex;justify-content:space-between;align-items:center;margin:28px 0 14px}
+.link{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500}
+.link svg{font-size:14px}
+
+/* Hero */
+.hero{position:relative;border-radius:20px;overflow:hidden;min-height:258px;padding:30px 32px;background:linear-gradient(100deg,#e3f1e9 0%,#e9f3e6 45%,#9cc26a 100%);display:flex;flex-direction:column;justify-content:center}
+.hero h1{font-size:38px;line-height:1.1;font-weight:800;color:var(--green-900);margin-bottom:14px;letter-spacing:-.5px}
+.hero p{max-width:340px;font-size:17px;line-height:1.5;margin-bottom:22px}
+.hero .art{position:absolute;right:40px;bottom:-20px;font-size:230px;line-height:1;filter:drop-shadow(0 10px 20px rgba(0,0,0,.15))}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--green-800);color:#fff;border-radius:999px;padding:12px 22px;font-weight:600;font-size:14px;align-self:flex-start;transition:background .15s}
+.btn:hover{background:var(--green-900)}
+.btn.sm{border-radius:10px;padding:10px 16px;font-size:13px}
+
+/* Quick access */
+.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.qcard{border-radius:var(--radius);padding:18px;display:flex;flex-direction:column;gap:8px;min-height:200px;text-align:left;transition:transform .15s}
+.qcard:hover{transform:translateY(-2px)}
+.qcard .ic{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;font-size:24px;margin-bottom:8px}
+.qcard h3{font-size:16px;font-weight:700}
+.qcard p{color:var(--muted);font-size:13px;line-height:1.5}
+.qcard .go{margin-top:auto;font-size:20px}
+.q-green{background:#e6f2ea}.q-green .ic{background:#cfe7d8;color:var(--green-800)}
+.q-blue{background:var(--blue-bg)}.q-blue .ic{background:#cfe2f6;color:var(--blue)}
+.q-yellow{background:var(--yellow-bg)}.q-yellow .ic{background:#f6e6bb;color:var(--yellow)}
+.q-purple{background:var(--purple-bg)}.q-purple .ic{background:#dcd5f6;color:var(--purple)}
+
+/* Articles */
+.articles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.article{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column}
+.article[hidden]{display:none}
+.photo{height:100px;position:relative;display:grid;place-items:center;font-size:64px;background-size:cover;background-position:center}
+.ph-cow{background:linear-gradient(160deg,#a9cf86,#5f9a45)}
+.ph-goat{background:linear-gradient(160deg,#b9dc9a,#6aa84f)}
+.ph-hen{background:linear-gradient(160deg,#9bc08a,#4f7f3f)}
+.tag{position:absolute;left:12px;bottom:-12px;background:var(--green-800);color:#fff;font-size:11px;font-weight:600;padding:4px 12px;border-radius:999px}
+.article .body{padding:22px 14px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.article h3{font-size:15px;font-weight:700}
+.article p{color:var(--muted);font-size:12.5px;line-height:1.5}
+.article .link{margin-top:auto;padding-top:10px;color:var(--green-800);font-weight:600}
+.empty{grid-column:1/-1;color:var(--muted);padding:20px 0}
+
+/* Right column */
+.side-col{display:flex;flex-direction:column;gap:18px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px}
+.panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.panel-head h2{font-size:18px}
+.animal{display:flex;align-items:center;gap:12px;padding:12px 0;width:100%;text-align:left}
+.animal .pic{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-size:26px;background:#eef1ee}
+.animal b{display:block;font-size:14px}
+.animal small{color:var(--muted);font-size:12px}
+.badge{margin-left:auto;font-size:11.5px;font-weight:500;padding:4px 12px;border-radius:999px;white-space:nowrap}
+.ok{background:#e0f1e5;color:#2f7a4a}
+.due{background:#fdf0cf;color:#b5790a}
+.reminder{display:flex;align-items:center;gap:14px;padding:14px 0;border-top:1px solid var(--line);width:100%;text-align:left}
+.reminder:first-of-type{border-top:0}
+.reminder .ic{width:38px;height:38px;border-radius:50%;background:#eaf2fa;color:var(--blue);display:grid;place-items:center;font-size:19px;flex:none}
+.reminder b{display:block;font-size:13px;font-weight:500}
+.reminder small{color:var(--muted);font-size:12.5px}
+.reminder.done{opacity:.45;text-decoration:line-through}
+.emergency{background:#e5f2ea;border-radius:var(--radius);padding:24px 22px 22px}
+.emergency .badge-ic{width:40px;height:40px;border-radius:50%;background:var(--green-900);color:#fff;display:grid;place-items:center;margin-bottom:18px}
+.emergency .badge-ic svg{fill:#fff;stroke:none;font-size:22px}
+.emergency h3{font-size:17px;margin-bottom:8px}
+.emergency p{color:#4d625a;font-size:13px;line-height:1.5;margin-bottom:16px;max-width:230px}
+
+/* Interactive additions */
+.rel{position:relative}.dot{position:absolute;top:0;right:0;width:9px;height:9px;border-radius:50%;background:#e5533d;border:2px solid #fff}
+.bell{position:relative}
+.pop{position:absolute;right:0;top:calc(100% + 12px);width:290px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 30px rgba(15,74,58,.15);padding:8px;z-index:30}
+.pop[hidden]{display:none}
+.pop button{display:block;width:100%;text-align:left;padding:10px 12px;border-radius:10px;font-size:13px}
+.pop button:hover{background:var(--green-50)}.pop small{display:block;color:var(--muted)}
+.pop h4{padding:8px 12px 4px;font-size:13px}
+.content.single{grid-template-columns:1fr}.content.single .side-col{display:none}
+.page-head{margin:12px 0 18px}.page-head h1{font-size:28px;font-weight:800;color:var(--green-900)}.page-head p{color:var(--muted);margin-top:4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:18px;text-align:left;display:flex;flex-direction:column;gap:8px;transition:transform .15s,border-color .15s}
+button.card:hover{transform:translateY(-2px);border-color:var(--green-700)}
+.card h3{font-size:16px}.card p,.card small{color:var(--muted);line-height:1.5;font-size:13px}
+.big{font-size:38px;line-height:1}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 16px}
+.chip{border:1px solid var(--line);border-radius:999px;padding:8px 14px;background:#fff;font-size:13px;font-weight:500}
+.chip:hover{border-color:var(--green-700)}.chip.on{background:var(--green-800);color:#fff;border-color:var(--green-800)}
+.chip.static{cursor:default;background:var(--green-50)}
+form.card{flex-direction:row;flex-wrap:wrap;align-items:flex-end;margin-bottom:16px}
+label.f{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:600;flex:1;min-width:130px}
+input.in,select.in{font:inherit;border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff;color:var(--ink)}
+.row{display:flex;align-items:center;gap:14px;padding:14px 18px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);margin-bottom:10px}
+.row .grow{flex:1}.row.done b{text-decoration:line-through;opacity:.5}
+.btn.ghost{background:#fff;color:var(--green-800);border:1px solid var(--green-800)}
+.btn.ghost:hover{background:var(--green-50)}
+.note{background:var(--yellow-bg);border-radius:12px;padding:12px 16px;font-size:13px;margin-bottom:14px}
+.overlay{position:fixed;inset:0;background:rgba(10,40,30,.5);display:grid;place-items:center;z-index:60;padding:16px}
+.overlay[hidden]{display:none}
+.modal{background:#fff;border-radius:20px;max-width:520px;width:100%;max-height:85vh;overflow:auto;padding:26px;position:relative}
+.modal h2{font-size:22px;margin-bottom:6px;padding-right:30px}.modal p{line-height:1.6;margin:10px 0}.modal h4{margin-top:14px}
+.modal .x{position:absolute;top:16px;right:18px;font-size:22px;color:var(--muted)}
+.modal .acts{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+
+.signed{position:fixed;inset:0;background:linear-gradient(160deg,#0f4a3a,#145a46);color:#fff;display:grid;place-content:center;justify-items:center;text-align:center;gap:14px;z-index:100;padding:20px}
+.signed[hidden]{display:none}.signed .btn{background:#fff;color:var(--green-900)}
+textarea.in{resize:vertical;font:inherit}
+/* Toast */
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,20px);background:var(--green-900);color:#fff;padding:12px 20px;border-radius:12px;opacity:0;pointer-events:none;transition:.25s;z-index:50}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* Responsive */
+@media (max-width:1280px){.content{grid-template-columns:1fr}.side-col{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}}
+@media (max-width:960px){
+  .sidebar{position:fixed;z-index:40;transform:translateX(-100%);transition:transform .25s}
+  .sidebar.open{transform:none}
+  .menu-btn{display:block}
+  .quick{grid-template-columns:repeat(2,1fr)}
+  .articles{grid-template-columns:1fr}
+  .user span{display:none}
+}
+@media (max-width:560px){.hero .art{font-size:140px;opacity:.5}.hero h1{font-size:30px}.quick{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- Reusable icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="paw" viewBox="0 0 24 24"><ellipse cx="5.5" cy="10" rx="2.2" ry="2.8"/><ellipse cx="18.5" cy="10" rx="2.2" ry="2.8"/><ellipse cx="9.2" cy="5.2" rx="2.2" ry="2.8"/><ellipse cx="14.8" cy="5.2" rx="2.2" ry="2.8"/><path d="M12 11c-3.3 0-6 2.9-6 5.6 0 2 1.6 3 3.2 3 1 0 1.8-.4 2.8-.4s1.8.4 2.8.4c1.6 0 3.2-1 3.2-3C18 13.900 15.300 11 12 11z"/></symbol>
+  <symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.500-3.500"/></symbol>
+  <symbol id="home" viewBox="0 0 24 24"><path d="M3 11 12 3l9 8M5 10v10h5v-6h4v6h5V10"/></symbol>
+  <symbol id="heart" viewBox="0 0 24 24"><path d="M12 20s-8-4.800-8-11a4.500 4.500 0 0 1 8-2.700A4.500 4.500 0 0 1 20 9c0 6.200-8 11-8 11z"/><path d="M7 11h3l1.500-2.500L13 13l1.200-2H17"/></symbol>
+  <symbol id="cal" viewBox="0 0 24 24"><rect x="3.500" y="5" width="17" height="15" rx="2.500"/><path d="M8 3v4M16 3v4M3.500 10h17M8 14h.01M12 14h.01M16 14h.01M8 17h.01M12 17h.01"/></symbol>
+  <symbol id="pin" viewBox="0 0 24 24"><path d="M12 21s7-6.100 7-11.500A7 7 0 0 0 5 9.500C5 14.900 12 21 12 21z"/><circle cx="12" cy="9.500" r="2.500"/></symbol>
+  <symbol id="book" viewBox="0 0 24 24"><path d="M12 6.500C10 5 7 4.500 3.500 5v13.500c3.500-.5 6.500 0 8.500 1.500 2-1.500 5-2 8.500-1.500V5C17 4.500 14 5 12 6.500zM12 6.500V20"/></symbol>
+  <symbol id="bell" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.500 2h-15zM10 21h4"/></symbol>
+  <symbol id="user" viewBox="0 0 24 24"><circle cx="12" cy="8.500" r="4" style="fill:currentColor;stroke:none"/><path d="M4 21c0-4.400 3.600-7 8-7s8 2.600 8 7z" style="fill:currentColor;stroke:none"/></symbol>
+  <symbol id="menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+</svg>
+
+<aside class="sidebar" id="sidebar">
+  <div class="brand" data-go="home" role="button" tabindex="0" style="cursor:pointer">
+    <svg><use href="#paw"/></svg>
+    <div><b>Open Animal Care</b><small>Healthy Animals. Happier Futures.</small></div>
+  </div>
+  <nav class="nav" id="nav">
+    <a href="#" data-go="home" class="active"><svg><use href="#home"/></svg>Home</a>
+    <a href="#" data-go="health"><svg><use href="#heart"/></svg>Animal Health</a>
+    <a href="#" data-go="symptom"><svg><use href="#search"/></svg>Symptom Checker</a>
+    <a href="#" data-go="calendar"><svg><use href="#cal"/></svg>Vaccination Calendar</a>
+    <a href="#" data-go="animals"><svg><use href="#paw" style="fill:currentColor;stroke:none"/></svg>My Animals</a>
+    <a href="#" data-go="vets"><svg><use href="#pin"/></svg>Veterinary &amp; Rescue</a>
+    <a href="#" data-go="kb"><svg><use href="#book"/></svg>Knowledge Base</a>
+  </nav>
+  <div class="side-art" aria-hidden="true">🐄🐐🐕</div>
+  <div class="side-foot">Open Source &nbsp;•&nbsp; Free &nbsp;•&nbsp; For Everyone</div>
+</aside>
+
+<div class="main">
+  <header class="topbar">
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu"><svg><use href="#menu"/></svg></button>
+    <label class="search">
+      <svg><use href="#search"/></svg>
+      <input id="searchInput" type="search" placeholder="Search for diseases, symptoms, or topics…" aria-label="Search">
+    </label>
+    <div class="top-right">
+      <div class="rel"><button class="bell" id="bellBtn" aria-label="Notifications"><svg><use href="#bell"/></svg><i class="dot" id="dot"></i></button><div class="pop" id="bellPop" hidden></div></div>
+      <div class="rel"><button class="user" id="userBtn"><div class="avatar"><svg style="font-size:22px"><use href="#user"/></svg></div><span id="userName">RMD Boys</span><svg><use href="#chev"/></svg></button>
+        <div class="pop" id="userPop" hidden><button data-profile>Profile</button><button data-go="animals">My animals</button><button data-settings>Settings</button><button data-signout>Sign out</button></div></div>
+    </div>
+  </header>
+
+  <div class="content" id="contentWrap">
+    <main id="home">
+      <section class="hero">
+        <h1>Better Care<br>for Every Animal</h1>
+        <p>Get trusted information, track health, and find the right help — all in one place.</p>
+        <a class="btn" href="#quick">Explore Features <svg><use href="#arrow"/></svg></a>
+        <div class="art" aria-hidden="true">🐮</div>
+      </section>
+
+      <div class="section-head" id="quick"><h2>Quick Access</h2></div>
+      <section class="quick">
+        <button class="qcard q-green" data-go="symptom"><span class="ic"><svg><use href="#search"/></svg></span><h3>Symptom Checker</h3><p>Find possible conditions based on symptoms.</p><svg class="go"><use href="#arrow"/></svg></button>
+        <button class="qcard q-blue" data-go="health"><span class="ic"><svg><use href="#book"/></svg></span><h3>Disease Information</h3><p>Learn about common diseases and prevention.</p><svg class="go"><use href="#arrow"/></svg></button>
+        <button class="qcard q-yellow" data-go="calendar"><span class="ic"><svg><use href="#cal"/></svg></span><h3>Vaccination Calendar</h3><p>Keep track of your animal's vaccines and due dates.</p><svg class="go"><use href="#arrow"/></svg></button>
+        <button class="qcard q-purple" data-go="vets"><span class="ic"><svg><use href="#pin"/></svg></span><h3>Find Veterinary Help</h3><p>Locate nearby vets, shelters and rescue services.</p><svg class="go"><use href="#arrow"/></svg></button>
+      </section>
+
+      <div class="section-head"><h2>Featured Articles</h2><a class="link" href="#" data-go="kb">View All <svg><use href="#arrow"/></svg></a></div>
+      <section class="articles" id="articles">
+        <article class="article">
+          <div class="photo ph-cow">🐄<span class="tag">Cattle</span></div>
+          <div class="body"><h3>Common Diseases in Cattle</h3><p>Learn about common cattle diseases, symptoms and prevention tips.</p><a class="link" href="#" data-article="cattle">Read More <svg><use href="#arrow"/></svg></a></div>
+        </article>
+        <article class="article">
+          <div class="photo ph-goat">🐐<span class="tag">Goat</span></div>
+          <div class="body"><h3>Goat Nutrition Guide</h3><p>Essential nutrients and feeding recommendations for healthy goats.</p><a class="link" href="#" data-article="goat">Read More <svg><use href="#arrow"/></svg></a></div>
+        </article>
+        <article class="article">
+          <div class="photo ph-hen">🐓<span class="tag">Poultry</span></div>
+          <div class="body"><h3>Poultry Vaccination Schedule</h3><p>Keep your flock protected with the right vaccination schedule.</p><a class="link" href="#" data-article="poultry">Read More <svg><use href="#arrow"/></svg></a></div>
+        </article>
+        <p class="empty" id="noResults" hidden>No articles match your search.</p>
+      </section>
+    </main>
+    <main id="page" hidden></main>
+
+    <aside class="side-col">
+      <section class="panel">
+        <div class="panel-head"><h2>My Animals</h2><a class="link" href="#" data-go="animals">View All <svg><use href="#arrow"/></svg></a></div>
+        <div id="animalList"></div>
+        </section>
+
+      <section class="panel">
+        <div class="panel-head"><h2>Upcoming Reminders</h2><a class="link" href="#" data-go="calendar">View All <svg><use href="#arrow"/></svg></a></div>
+        <div id="reminderList"></div>
+        </section>
+
+      <section class="emergency">
+        <div class="badge-ic"><svg><use href="#paw"/></svg></div>
+        <h3>Need Emergency Help?</h3>
+        <p>Find nearby veterinary hospitals, shelters or rescue organisations quickly.</p>
+        <a class="btn sm" href="#" data-go="vets" data-emergency>Find Help <svg><use href="#arrow"/></svg></a>
+      </section>
+    </aside>
+  </div>
+</div>
+
+<div class="signed" id="signed" hidden><div style="font-size:60px">🐾</div><h1>You have signed out</h1><p>Your data is saved on this device.</p><button class="btn" data-signin>Sign back in</button></div>
+<div class="overlay" id="overlay" hidden><div class="modal" role="dialog" aria-modal="true"><button class="x" data-close aria-label="Close">×</button><div id="modalBody"></div></div></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const emojiOf={Cow:'🐄',Goat:'🐐',Dog:'🐕',Chicken:'🐓',Sheep:'🐑',Horse:'🐴',Cat:'🐈'};
+let animals=[
+ {id:'bessie',name:'Bessie',type:'Cow',age:4,emoji:'🐄',status:'Healthy',note:'Milking normally and eating well. Last checkup January.'},
+ {id:'luna',name:'Luna',type:'Goat',age:2,emoji:'🐐',status:'Vaccination Due',note:'Rabies vaccine is coming due. Book a visit soon.'},
+ {id:'max',name:'Max',type:'Dog',age:3,emoji:'🐕',status:'Healthy',note:'Active and healthy. Annual checkup is coming up.'}];
+let reminders=[
+ {id:1,text:'Luna – Rabies Vaccine',date:'Apr 26, 2025',done:false},
+ {id:2,text:'Bessie – Deworming',date:'May 10, 2025',done:false},
+ {id:3,text:'Max – Annual Checkup',date:'Jun 15, 2025',done:false}];
+let nextId=10;
+const diseases=[
+ {id:'mastitis',name:'Mastitis',sp:'Cattle',e:'🐄',urg:'See a vet soon',sym:['Swollen udder','Clotted milk','Fever','Reduced appetite'],about:'An infection of the udder, common in dairy animals.',prev:'Keep bedding clean, disinfect teats after milking, and keep milking equipment well maintained.'},
+ {id:'fmd',name:'Foot-and-Mouth Disease',sp:'Cattle',e:'🐄',urg:'Emergency – report to authorities',sym:['Fever','Mouth blisters','Drooling','Limping'],about:'A highly contagious viral disease of cloven-hoofed animals.',prev:'Vaccinate where advised, isolate new animals, and restrict farm visitors.'},
+ {id:'bloat',name:'Bloat',sp:'Goat',e:'🐐',urg:'Emergency',sym:['Swollen belly','Discomfort','Drooling','Reduced appetite'],about:'Gas builds up in the stomach, often after sudden feed changes.',prev:'Change feed gradually, give enough roughage, and avoid wet lush pasture on an empty stomach.'},
+ {id:'newcastle',name:'Newcastle Disease',sp:'Poultry',e:'🐓',urg:'Emergency – report to authorities',sym:['Coughing','Twisted neck','Drop in egg laying','Diarrhea'],about:'A fast-spreading viral disease that affects the breathing and nerves of birds.',prev:'Follow the vaccination schedule, keep biosecurity tight, and quarantine new birds.'},
+ {id:'parvo',name:'Canine Parvovirus',sp:'Dog',e:'🐕',urg:'Emergency',sym:['Vomiting','Bloody diarrhea','Fever','Lethargy','Reduced appetite'],about:'A serious viral illness, most dangerous for puppies.',prev:'Complete the puppy vaccine series and avoid contact with unvaccinated dogs.'},
+ {id:'rabies',name:'Rabies',sp:'All mammals',e:'🐾',urg:'Emergency',sym:['Aggression','Drooling','Fever','Paralysis'],about:'A fatal viral disease that can spread to people.',prev:'Keep rabies vaccines up to date and avoid contact with wild animals.'}];
+const articles={
+ cattle:{tag:'Cattle',e:'🐄',t:'Common Diseases in Cattle',d:'Learn about common cattle diseases, symptoms and prevention tips.',b:['Mastitis, bloat, foot rot and tick fever are among the most common problems in cattle.','Watch for changes in appetite, milk yield, walking and temperature. Early treatment is cheaper and safer.','Prevention rests on clean housing, regular vaccination and deworming, and a balanced diet.']},
+ goat:{tag:'Goat',e:'🐐',t:'Goat Nutrition Guide',d:'Essential nutrients and feeding recommendations for healthy goats.',b:['Goats need good quality roughage first: pasture, browse or hay.','Add minerals formulated for goats. Copper needs differ from sheep.','Always provide clean water and change feed gradually over 7–10 days.']},
+ poultry:{tag:'Poultry',e:'🐓',t:'Poultry Vaccination Schedule',d:'Keep your flock protected with the right vaccination schedule.',b:['Chicks are usually vaccinated against Marek’s disease at hatch, then Newcastle disease and infectious bronchitis in the first weeks.','Schedules vary by region and flock type. Confirm yours with a local vet.','Record every vaccination date so boosters are not missed.']},
+ dog:{tag:'Dogs',e:'🐕',t:'Dog Vaccination Basics',d:'Core vaccines every dog needs and when to give them.',b:['Core vaccines cover parvovirus, distemper, adenovirus and rabies.','Puppies start at 6–8 weeks with boosters every 3–4 weeks until about 16 weeks.','Adult dogs need boosters on the schedule your vet recommends.']},
+ heat:{tag:'General',e:'☀️',t:'Spotting Heat Stress',d:'Signs of heat stress in farm animals and how to cool them safely.',b:['Look for heavy panting, drooling, weakness and reduced eating.','Move animals to shade, offer cool water, and use fans or sprinklers if you can.','Call a vet if an animal collapses or does not recover quickly.']},
+ aid:{tag:'General',e:'🩹',t:'First Aid for Farm Animals',d:'What to keep in your kit and what to do before the vet arrives.',b:['Keep a thermometer, clean bandages, saline, gloves and your vet’s number together.','Control bleeding with firm pressure and keep the animal calm and still.','First aid buys time. It does not replace a vet visit.']}};
+const vets=[
+ {n:'Greenfield Veterinary Hospital',t:'Vet',km:2.4,h:'Open 24 hours',tel:'+10000000001',tw:true},
+ {n:'Riverside Large Animal Clinic',t:'Vet',km:5.1,h:'8am – 6pm',tel:'+10000000002'},
+ {n:'Happy Tails Shelter',t:'Shelter',km:3.8,h:'9am – 5pm',tel:'+10000000003'},
+ {n:'Farm Animal Rescue Network',t:'Rescue',km:7.2,h:'Open 24 hours',tel:'+10000000004',tw:true},
+ {n:'Village Vet Care',t:'Vet',km:9.6,h:'9am – 4pm',tel:'+10000000005'}];
+let sel=new Set(),kbQ='',kbTag='All',vf='All';
+let settings={name:'RMD Boys',notify:true,units:'km'};
+const KEY='oac_v1';
+try{const sv=JSON.parse(localStorage.getItem(KEY));if(sv){animals=sv.animals||animals;reminders=sv.reminders||reminders;nextId=sv.nextId||nextId;Object.assign(settings,sv.settings)}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify({animals,reminders,nextId,settings}))}catch(e){}}
+const dist=k=>settings.units=='mi'?(k*0.621).toFixed(1)+' mi':k+' km';
+const applyName=()=>{$('#userName').textContent=settings.name};
+
+/* ---------- helpers ---------- */
+let tt;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),1800)}
+function modal(h){$('#modalBody').innerHTML=h;$('#overlay').hidden=false}
+function closeModal(){$('#overlay').hidden=true}
+const yrs=n=>n+' year'+(n==1?'':'s');
+const fmt=d=>new Date(d+'T00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+
+/* ---------- home side panels ---------- */
+function renderSide(){
+ $('#animalList').innerHTML=animals.map(a=>`<button class="animal" data-animal="${a.id}"><span class="pic">${a.emoji}</span><span><b>${esc(a.name)}</b><small>${a.type} • ${yrs(a.age)}</small></span><span class="badge ${a.status=='Healthy'?'ok':'due'}">${a.status}</span></button>`).join('');
+ $('#reminderList').innerHTML=reminders.slice(0,4).map(r=>`<button class="reminder ${r.done?'done':''}" data-reminder="${r.id}"><span class="ic"><svg><use href="#cal"/></svg></span><span><b>${esc(r.text)}</b><small>${r.date}</small></span></button>`).join('');
+ $('#dot').hidden=!(settings.notify&&reminders.some(r=>!r.done));
+}
+
+/* ---------- views ---------- */
+const head=(t,p)=>`<div class="page-head"><h1>${t}</h1><p>${p}</p></div>`;
+const views={
+ health:()=>head('Animal Health','Tap a condition to see signs, prevention and when to get help.')+`<div class="grid">${diseases.map(d=>`<button class="card" data-disease="${d.id}"><span class="big">${d.e}</span><h3>${d.name}</h3><small>${d.sp} • ${d.urg}</small><p>${d.about}</p></button>`).join('')}</div>`,
+ symptom:()=>{const all=[...new Set(diseases.flatMap(d=>d.sym))].sort();
+  const res=diseases.map(d=>({d,m:d.sym.filter(x=>sel.has(x)).length})).filter(x=>x.m).sort((a,b)=>b.m-a.m);
+  return head('Symptom Checker','Select what you are seeing to find possible conditions.')+`<div class="note">This is general information, not a diagnosis. If an animal is in distress, contact a vet.</div><div class="chips">${all.map(x=>`<button class="chip ${sel.has(x)?'on':''}" data-sym="${esc(x)}">${x}</button>`).join('')}</div>${sel.size?`<button class="btn ghost sm" data-clear>Clear selection</button>`:''}<h2 style="margin:18px 0 12px">${sel.size?'Possible conditions':'Pick at least one symptom'}</h2><div class="grid">${res.map(({d,m})=>`<button class="card" data-disease="${d.id}"><span class="big">${d.e}</span><h3>${d.name}</h3><small>${m} of ${d.sym.length} symptoms match • ${d.urg}</small></button>`).join('')}</div>`},
+ calendar:()=>head('Vaccination Calendar','Track vaccines, deworming and checkups.')+`<form class="card" data-form="reminder"><label class="f">Animal<select class="in" name="a">${animals.map(a=>`<option>${esc(a.name)}</option>`).join('')}</select></label><label class="f">What<input class="in" name="t" placeholder="e.g. Rabies vaccine" required></label><label class="f">Date<input class="in" type="date" name="d" required></label><button class="btn sm">Add reminder</button></form>`+reminders.map(r=>`<div class="row ${r.done?'done':''}"><span class="grow"><b>${esc(r.text)}</b><br><small style="color:var(--muted)">${r.date}</small></span><button class="btn ghost sm" data-toggle="${r.id}">${r.done?'Undo':'Mark done'}</button><button aria-label="Delete" data-del="${r.id}" style="font-size:20px;color:var(--muted)">×</button></div>`).join(''),
+ animals:()=>head('My Animals','Everyone you look after, in one place.')+`<form class="card" data-form="animal"><label class="f">Name<input class="in" name="n" required></label><label class="f">Type<select class="in" name="t">${Object.keys(emojiOf).map(k=>`<option>${k}</option>`).join('')}</select></label><label class="f">Age (years)<input class="in" type="number" name="a" min="0" max="40" value="1" required></label><button class="btn sm">Add animal</button></form><div class="grid">${animals.map(a=>`<button class="card" data-animal="${a.id}"><span class="big">${a.emoji}</span><h3>${esc(a.name)}</h3><small>${a.type} • ${yrs(a.age)}</small><span class="badge ${a.status=='Healthy'?'ok':'due'}" style="align-self:flex-start;margin:0">${a.status}</span></button>`).join('')}</div>`,
+ vets:()=>head('Veterinary & Rescue','Find nearby help. Tap Call to phone, or Directions to open a map.')+`<div class="chips">${['All','Vet','Shelter','Rescue','Open 24h'].map(x=>`<button class="chip ${vf==x?'on':''}" data-vf="${x}">${x}</button>`).join('')}</div>`+vets.map((v,i)=>({v,i})).filter(({v})=>vf=='All'||v.t==vf||(vf=='Open 24h'&&v.tw)).map(({v,i})=>`<div class="row"><span class="big" style="font-size:28px">📍</span><span class="grow"><b>${v.n}</b><br><small style="color:var(--muted)">${v.t} • ${dist(v.km)} • ${v.h}</small></span><button class="btn sm" data-call="${i}">Call</button><a class="btn ghost sm" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(v.n)}">Directions</a></div>`).join(''),
+ kb:()=>head('Knowledge Base','Guides and articles for every animal.')+`<input class="in" id="kbInput" style="width:100%;max-width:420px" placeholder="Search articles…" value="${esc(kbQ)}"><div class="chips">${['All','Cattle','Goat','Poultry','Dogs','General'].map(x=>`<button class="chip ${kbTag==x?'on':''}" data-kbtag="${x}">${x}</button>`).join('')}</div><div class="grid" id="kbList"></div>`
+};
+function kbList(){const l=$('#kbList');if(!l)return;const q=kbQ.toLowerCase();
+ const r=Object.entries(articles).filter(([k,a])=>(kbTag=='All'||a.tag==kbTag)&&(a.t+a.d).toLowerCase().includes(q));
+ l.innerHTML=r.length?r.map(([k,a])=>`<button class="card" data-article="${k}"><span class="big">${a.e}</span><h3>${a.t}</h3><small>${a.tag}</small><p>${a.d}</p></button>`).join(''):'<p class="empty">No articles match your search.</p>'}
+let cur='home';
+function go(v){cur=v;const home=v=='home';
+ $$('#nav a').forEach(a=>a.classList.toggle('active',a.dataset.go==v));
+ $('#home').hidden=!home;$('#page').hidden=home;$('#contentWrap').classList.toggle('single',!home);
+ if(!home){$('#page').innerHTML=views[v]();if(v=='kb')kbList()}
+ $('#sidebar').classList.remove('open');$$('.pop').forEach(p=>p.hidden=true);scrollTo({top:0})}
+function refresh(){save();renderSide();if(cur!='home')go(cur)}
+
+/* ---------- modals ---------- */
+function showDisease(id){const d=diseases.find(x=>x.id==id);
+ modal(`<h2>${d.e} ${d.name}</h2><small style="color:var(--muted)">${d.sp} • ${d.urg}</small><p>${d.about}</p><h4>Signs to watch for</h4><div class="chips">${d.sym.map(x=>`<span class="chip static">${x}</span>`).join('')}</div><h4>Prevention</h4><p>${d.prev}</p><div class="acts"><button class="btn sm" data-go="vets">Find a vet</button><button class="btn ghost sm" data-close>Close</button></div>`)}
+function showArticle(k){const a=articles[k];
+ modal(`<small style="color:var(--green-800);font-weight:600">${a.tag}</small><h2>${a.e} ${a.t}</h2>${a.b.map(x=>`<p>${x}</p>`).join('')}<div class="acts"><button class="btn sm" data-go="kb">More articles</button><button class="btn ghost sm" data-close>Close</button></div>`)}
+function showAnimal(id){const a=animals.find(x=>x.id==id);const ok=a.status=='Healthy';
+ modal(`<h2>${a.emoji} ${esc(a.name)}</h2><small style="color:var(--muted)">${a.type} • ${yrs(a.age)}</small><p><span class="badge ${ok?'ok':'due'}" style="margin:0">${a.status}</span></p><form data-form="note"><input type="hidden" name="id" value="${a.id}"><label class="f">Notes<textarea class="in" name="n" rows="3">${esc(a.note)}</textarea></label><div class="acts"><button class="btn sm">Save notes</button><button type="button" class="btn ghost sm" data-status="${a.id}">${ok?'Mark vaccination due':'Mark as healthy'}</button></div></form><div class="acts"><button class="btn ghost sm" data-go="calendar">View reminders</button><button class="btn ghost sm" data-go="symptom">Check symptoms</button><button class="btn ghost sm" data-remove="${a.id}">Remove</button></div>`)}
+function showProfile(){const n=reminders.filter(r=>!r.done).length;modal(`<h2>${esc(settings.name)}</h2><p>Caring for ${animals.length} animal${animals.length==1?'':'s'}. ${n} upcoming reminder${n==1?'':'s'}.</p><div class="acts"><button class="btn sm" data-settings>Edit in Settings</button><button class="btn ghost sm" data-go="animals">My animals</button></div>`)}
+function showSettings(){modal(`<h2>Settings</h2><form data-form="settings" style="display:flex;flex-direction:column;gap:14px;margin-top:12px"><label class="f">Display name<input class="in" name="name" value="${esc(settings.name)}" maxlength="30"></label><label class="f">Distance units<select class="in" name="units"><option value="km" ${settings.units=='km'?'selected':''}>Kilometres</option><option value="mi" ${settings.units=='mi'?'selected':''}>Miles</option></select></label><label style="display:flex;gap:10px;align-items:center;font-size:14px"><input type="checkbox" name="notify" ${settings.notify?'checked':''}> Show reminder alerts on the bell</label><div class="acts"><button class="btn sm">Save</button><button type="button" class="btn ghost sm" data-reset>Reset all data</button></div></form>`)}
+function showCall(i){const v=vets[i];modal(`<h2>${v.n}</h2><p>${v.t} • ${dist(v.km)} away • ${v.h}</p><p style="font-size:24px;font-weight:700">${v.tel}</p><p><small style="color:var(--muted)">Placeholder number. Replace with real listings.</small></p><div class="acts"><a class="btn sm" href="tel:${v.tel}">Open dialer</a><button class="btn ghost sm" data-copy="${v.tel}">Copy number</button></div>`)}
+function showReminder(id){const r=reminders.find(x=>x.id==id);
+ modal(`<h2>${esc(r.text)}</h2><p>Due ${r.date}. Status: <b>${r.done?'Done':'Upcoming'}</b></p><div class="acts"><button class="btn sm" data-toggle="${r.id}" data-close>${r.done?'Mark as upcoming':'Mark as done'}</button><button class="btn ghost sm" data-go="calendar">Open calendar</button></div>`)}
+
+/* ---------- events ---------- */
+document.addEventListener('click',e=>{
+ const t=e.target.closest('[data-go],[data-article],[data-animal],[data-disease],[data-reminder],[data-toggle],[data-del],[data-sym],[data-clear],[data-vf],[data-kbtag],[data-remove],[data-close],[data-toast],[data-profile],[data-settings],[data-signout],[data-dosignout],[data-signin],[data-call],[data-copy],[data-status],[data-reset],#bellBtn,#userBtn,#overlay');
+ if(!e.target.closest('.rel'))$$('.pop').forEach(p=>p.hidden=true);
+ if(!t)return;const d=t.dataset;
+ if(t.id=='overlay'){if(e.target.id=='overlay')closeModal();return}
+ if(t.tagName=='A'&&!(t.getAttribute('href')||'').startsWith('tel:')&&!t.target)e.preventDefault();
+ if(t.id=='bellBtn'){const p=$('#bellPop');const open=reminders.filter(r=>!r.done);const was=p.hidden;$$('.pop').forEach(x=>x.hidden=true);
+  p.innerHTML='<h4>Notifications</h4>'+(open.length?open.map(r=>`<button data-go="calendar"><b>${esc(r.text)}</b><small>${r.date}</small></button>`).join(''):'<h4 style="font-weight:400">You are all caught up.</h4>');p.hidden=!was;return}
+ if(t.id=='userBtn'){const p=$('#userPop');const was=p.hidden;$$('.pop').forEach(x=>x.hidden=true);p.hidden=!was;return}
+ if('profile' in d){showProfile();$$('.pop').forEach(p=>p.hidden=true);return}
+ if('settings' in d){showSettings();$$('.pop').forEach(p=>p.hidden=true);return}
+ if('signout' in d){modal('<h2>Sign out?</h2><p>Your animals and reminders stay saved on this device.</p><div class="acts"><button class="btn sm" data-dosignout>Sign out</button><button class="btn ghost sm" data-close>Cancel</button></div>');$$('.pop').forEach(p=>p.hidden=true);return}
+ if('dosignout' in d){closeModal();$('#signed').hidden=false;return}
+ if('signin' in d){$('#signed').hidden=true;go('home');toast('Welcome back, '+settings.name);return}
+ if(d.call){showCall(+d.call);return}
+ if(d.copy){navigator.clipboard?navigator.clipboard.writeText(d.copy).then(()=>toast('Number copied'),()=>toast(d.copy)):toast(d.copy);return}
+ if(d.status){const a=animals.find(x=>x.id==d.status);a.status=a.status=='Healthy'?'Vaccination Due':'Healthy';refresh();showAnimal(a.id);return}
+ if('reset' in d){if(confirm('Erase all saved data and restore the demo data?')){try{localStorage.removeItem(KEY)}catch(e){}location.reload()}return}
+ if(d.toast)toast('Prototype: '+d.toast);
+ if(d.toggle){const r=reminders.find(x=>x.id==d.toggle);r.done=!r.done;refresh();if(!('close' in d))return}
+ if(d.del){reminders=reminders.filter(x=>x.id!=d.del);refresh();return}
+ if(d.remove){animals=animals.filter(x=>x.id!=d.remove);closeModal();refresh();toast('Animal removed');return}
+ if(d.sym){sel.has(d.sym)?sel.delete(d.sym):sel.add(d.sym);go('symptom');return}
+ if('clear' in d){sel.clear();go('symptom');return}
+ if(d.vf){vf=d.vf;go('vets');return}
+ if(d.kbtag){kbTag=d.kbtag;go('kb');return}
+ if(d.article){closeModal();showArticle(d.article);return}
+ if(d.disease){showDisease(d.disease);return}
+ if(d.animal){showAnimal(d.animal);return}
+ if(d.reminder){showReminder(d.reminder);return}
+ if('close' in d)closeModal();
+ if(d.go){if('emergency' in d)vf='Open 24h';else if(d.go=='vets')vf='All';closeModal();go(d.go)}
+});
+document.addEventListener('submit',e=>{const f=e.target.closest('form[data-form]');if(!f)return;e.preventDefault();const v=Object.fromEntries(new FormData(f)),k=f.dataset.form;
+ if(k=='animal'){animals.push({id:'a'+nextId++,name:v.n,type:v.t,age:+v.a,emoji:emojiOf[v.t],status:'Healthy',note:'Added just now.'});toast(v.n+' added')}
+ else if(k=='note'){animals.find(x=>x.id==v.id).note=v.n;closeModal();toast('Notes saved')}
+ else if(k=='settings'){settings.name=v.name.trim()||'RMD Boys';settings.notify='notify' in v;settings.units=v.units;applyName();closeModal();toast('Settings saved')}
+ else{reminders.push({id:nextId++,text:v.a+' – '+v.t,date:fmt(v.d),done:false});toast('Reminder added')}
+ refresh()});
+document.addEventListener('input',e=>{if(e.target.id=='kbInput'){kbQ=e.target.value;kbList()}
+ if(e.target.id=='searchInput'&&cur=='home'){const q=e.target.value.trim().toLowerCase();let n=0;$$('.article').forEach(a=>{const m=a.textContent.toLowerCase().includes(q);a.hidden=!m;if(m)n++});$('#noResults').hidden=n>0}});
+$('#searchInput').addEventListener('keydown',e=>{if(e.key=='Enter'){kbQ=e.target.value.trim();kbTag='All';go('kb');$('#kbInput').focus()}});
+document.addEventListener('keydown',e=>{if(e.key=='Escape'){closeModal();$$('.pop').forEach(p=>p.hidden=true)}});
+$('#menuBtn').addEventListener('click',()=>$('#sidebar').classList.toggle('open'));
+$('#searchInput').addEventListener('input',e=>{if(cur=='home')return;kbQ=e.target.value.trim();if(cur!='kb'){kbTag='All';go('kb')}else{const ki=$('#kbInput');if(ki)ki.value=e.target.value;kbList()}});
+$('.brand').addEventListener('keydown',e=>{if(e.key=='Enter')go('home')});
+applyName();renderSide();
+</script>
+</body>
+</html>
